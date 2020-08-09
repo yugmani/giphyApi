@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Giphy API</title>
+  <style>
+    .giphy-container{
+      width:100%;
+      height:auto;
+      display:flex;
+      justify-content: space-around;
+      flex-wrap:wrap;
+    }
+
+    img {
+      width:200px;
+      height:auto;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <h1>Enjoy watching giphys</h1>
+  <div class="giphy-container">
+
+
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    // Example queryURL for Giphy API
+    var queryURL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    }).then(function(response) {
+      displayGiphy(response);
+    });
+
+    function displayGiphy(record){
+   
+      let containerEl = $(".giphy-container");
+      for (let i=0; i<record.data.length; i++){
+        let newDiv = document.createElement("div");
+        newDiv.classList.add("giphy-item");
+        let frameEl = document.createElement("img");
+        frameEl.setAttribute("src", `${record.data[i].images.downsized.url}`);
+        newDiv.append(frameEl);
+        containerEl.append(newDiv);
+      }
+   }
+    
+  </script>
+
+</body>
+
+</html>
